@@ -1,0 +1,11 @@
+Use brew to install postgresql
+Create new database called dope_database
+Create .env file with credentials
+    PGHOST=localhost
+    PGPORT=5432
+    PGUSER=stamatiangelides
+    PGPASSWORD=
+    PGDATABASE=dope_database
+
+Run the .sql file
+Then just run the server.js file
