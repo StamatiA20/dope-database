@@ -1,0 +1,129 @@
+{
+  "info": {
+    "_postman_id": "dope-database-collection",
+    "name": "Dope Database API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create or Find User",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uuid\": \"test-user-123\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/track/user",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["track", "user"]
+        }
+      }
+    },
+    {
+      "name": "Create Session",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": 1,\n  \"sessionId\": \"test-session-123\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/track/session",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["track", "session"]
+        }
+      }
+    },
+    {
+      "name": "Create Window",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sessionId\": 1,\n  \"opened\": \"2024-06-01T12:00:00Z\",\n  \"closed\": null\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/track/windows",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["track", "windows"]
+        }
+      }
+    },
+    {
+      "name": "Create Window Event",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"windowId\": 1,\n  \"eventType\": \"focus\",\n  \"eventDescription\": \"Window focused\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/track/window-event",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["track", "window-event"]
+        }
+      }
+    },
+    {
+      "name": "Create Page Event",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tabUuid\": \"tab-abc-123\",\n  \"windowId\": 1,\n  \"eventType\": \"page_load\",\n  \"eventDescription\": \"Page loaded\",\n  \"url\": \"http://example.com\",\n  \"timestamp\": \"2024-06-01T12:01:00Z\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/track/page-event",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["track", "page-event"]
+        }
+      }
+    },
+    {
+      "name": "Create Content Summary",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pageId\": 1,\n  \"summary\": \"This is a summary.\",\n  \"keywords\": [\"keyword1\", \"keyword2\"],\n  \"rawHtmlSnippet\": \"<div>Example</div>\",\n  \"generatedAt\": \"2024-06-01T12:02:00Z\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/track/content-summary",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["track", "content-summary"]
+        }
+      }
+    }
+  ]
+} 

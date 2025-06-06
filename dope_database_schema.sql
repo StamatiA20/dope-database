@@ -1,4 +1,3 @@
-
 -- USERS
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
@@ -15,42 +14,37 @@ CREATE TABLE sessions (
   ended_at TIMESTAMP
 );
 
--- PAGE VIEWS
-CREATE TABLE page_views (
+-- WINDOWS
+CREATE TABLE windows (
   id SERIAL PRIMARY KEY,
   session_id INTEGER REFERENCES sessions(id) ON DELETE CASCADE,
-  url TEXT NOT NULL,
-  title TEXT,
-  visit_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  scroll_depth INTEGER,
-  time_spent INTEGER
+  opened TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  closed TIMESTAMP
 );
 
--- INTERACTIONS
-CREATE TABLE interactions (
+-- WINDOW_EVENT
+CREATE TABLE window_event (
   id SERIAL PRIMARY KEY,
-  page_view_id INTEGER REFERENCES page_views(id) ON DELETE CASCADE,
+  window_id INTEGER REFERENCES windows(id) ON DELETE CASCADE,
   event_type TEXT NOT NULL,
-  element_selector TEXT,
-  input_value TEXT,
-  interaction_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  event_description TEXT
 );
 
--- BROWSER STATES
-CREATE TABLE browser_states (
+-- PAGE_EVENT
+CREATE TABLE page_event (
   id SERIAL PRIMARY KEY,
-  session_id INTEGER REFERENCES sessions(id) ON DELETE CASCADE,
-  state_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  open_tabs JSONB,
-  scroll_positions JSONB,
-  zoom_level NUMERIC,
-  active_url TEXT
+  tab_uuid TEXT NOT NULL,
+  window_id INTEGER REFERENCES windows(id) ON DELETE CASCADE,
+  event_type TEXT NOT NULL,
+  event_description TEXT,
+  url TEXT,
+  timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- CONTENT SUMMARIES
+-- CONTENT_SUMMARIES
 CREATE TABLE content_summaries (
   id SERIAL PRIMARY KEY,
-  page_view_id INTEGER REFERENCES page_views(id) ON DELETE CASCADE,
+  page_id INTEGER REFERENCES page_event(id) ON DELETE CASCADE,
   summary TEXT,
   keywords TEXT[],
   raw_html_snippet TEXT,
@@ -59,5 +53,3 @@ CREATE TABLE content_summaries (
 
 -- INDEXES
 CREATE INDEX idx_sessions_user_id ON sessions(user_id);
-CREATE INDEX idx_page_views_session_id ON page_views(session_id);
-CREATE INDEX idx_interactions_page_view_id ON interactions(page_view_id);
